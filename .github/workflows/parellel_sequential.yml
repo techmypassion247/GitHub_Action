@@ -1,0 +1,30 @@
+name: Parallel & Sequential Jobs
+
+on:  
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Build Application
+        run: echo "Building application..."
+
+  test:
+    needs: build  # Runs AFTER build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Tests
+        run: echo "Running tests..."
+
+  deploy:
+    needs: test  # Runs AFTER test is successful
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Application
+        run: echo "Deploying application..."
